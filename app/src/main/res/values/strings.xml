@@ -6,4 +6,6 @@
     <string name="endGameButton">End Game</string>
     <string name="music_on_off">Music On/Off</string>
     <string name="musicToggleButton">Music</string>
+    <string name="splashscreen">CS245 Project</string>
+    <string name="home_screen_picture">home screen picture</string>
 </resources>
