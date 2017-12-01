@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">weregunaremovethisoffthisescreen</string>
+    <string name="textValue1">textValue1</string>
+    <string name="tryAgainButton">Try Again</string>
+    <string name="newGameButton">New Game</string>
+    <string name="endGameButton">End Game</string>
+    <string name="music_on_off">Music On/Off</string>
+    <string name="musicToggleButton">Music</string>
+</resources>
