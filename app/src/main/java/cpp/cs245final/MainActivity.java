@@ -26,8 +26,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Global global;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
