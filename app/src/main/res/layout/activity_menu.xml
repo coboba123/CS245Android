@@ -15,14 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
         android:text="@string/startGameButton"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button2"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/highscoreButton"
+        app:layout_constraintEnd_toStartOf="@+id/highscoreButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="RtlCompat" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/highscoreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
