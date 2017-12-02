@@ -28,12 +28,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         final Button tryAgainButton = findViewById(R.id.tryAgainButton);
         final Button newGameButton = findViewById(R.id.newGameButton);
         final Button endGameButton = findViewById(R.id.endGameButton);
+
         final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
 
         tryAgainButton.setOnClickListener(this);
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+
     }
 
     @Override
