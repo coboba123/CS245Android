@@ -12,5 +12,10 @@
     <string name="mainMenuTitleText">Memory Game</string>
 
     <string name="highScoreButtonText">HighScores</string>
-        />
+    <string name="high_score">HIGH SCORE</string>
+    <string name="hiscore1">hiscore1</string>
+    <string name="hiscore2">hiscore2</string>
+    <string name="hiscore3">hiscore3</string>
+    <string name="hiScoreBackButton">Menu</string>
+    />
 </resources>

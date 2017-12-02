@@ -24,11 +24,10 @@ import android.widget.ToggleButton;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "MainActivity";
-    static MediaPlayer mediaPlayer = null;
+
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -37,9 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button newGameButton = findViewById(R.id.newGameButton);
         final Button endGameButton = findViewById(R.id.endGameButton);
 
-        if (mediaPlayer == null)
-            mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
-
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
 
         tryAgainButton.setOnClickListener(this);
         newGameButton.setOnClickListener(this);
@@ -48,38 +45,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ToggleButton toggle = findViewById(R.id.musicToggle);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 if (isChecked) {
 
                     mediaPlayer.start();
 
-                    Toast.makeText(getBaseContext(), "Music On", Toast.LENGTH_SHORT).show();
-                } else if (!isChecked) {
+                    Toast.makeText(getBaseContext(),"Music On",Toast.LENGTH_SHORT).show();
+                } else {
                     mediaPlayer.pause();
-                    Toast.makeText(getBaseContext(), "Music Off", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"Music Off",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
+
+
     }
 
-
-
-
-
     @Override
-    public void onClick(View view) {
+    public void onClick(View view){
         switch (view.getId()) {
             case R.id.tryAgainButton:
-                Toast.makeText(getBaseContext(), "hi cody", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"hi cody",Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.newGameButton:
-                Toast.makeText(getBaseContext(), "New Game!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"New Game!",Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.endGameButton:
-                Toast.makeText(getBaseContext(), "Game Terminated!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"Game Terminated!",Toast.LENGTH_LONG).show();
                 break;
 
             default:
@@ -87,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+
 
 
 }
