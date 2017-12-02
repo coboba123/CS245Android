@@ -26,8 +26,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Global global;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,9 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tryAgainButton.setOnClickListener(this);
         newGameButton.setOnClickListener(this);
         endGameButton.setOnClickListener(this);
-  ;
 
-       ToggleButton toggle = findViewById(R.id.musicToggle);
+        ToggleButton toggle = findViewById(R.id.musicToggle);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
