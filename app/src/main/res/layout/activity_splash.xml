@@ -29,7 +29,8 @@
             android:paddingTop="1dp"
             android:src="@drawable/diamond"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:contentDescription="@string/splashscreen" />
 
         <TextView
             android:id="@+id/splashscreen"

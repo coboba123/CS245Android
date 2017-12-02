@@ -2,6 +2,7 @@
     <string name="app_name">weregunaremovethisoffthisescreen</string>
     <string name="textValue1">textValue1</string>
     <string name="tryAgainButton">Try Again</string>
+    <string name="startGameButton">New Game</string>
     <string name="newGameButton">New Game</string>
     <string name="endGameButton">End Game</string>
     <string name="music_on_off">Music On/Off</string>
@@ -9,7 +10,7 @@
     <string name="splashscreen">CS245 Project</string>
     <string name="home_screen_picture">home screen picture</string>
     <string name="mainMenuTitleText">Memory Game</string>
-    <string name="startGameButton">New Game</string>
+
     <string name="highScoreButtonText">HighScores</string>
         />
 </resources>
