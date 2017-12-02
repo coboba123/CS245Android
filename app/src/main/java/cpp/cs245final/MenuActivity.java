@@ -11,7 +11,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
         final Button startGameButton = findViewById(R.id.startGameButton);
         final Button hiScoreButton = findViewById(R.id.highscoreButton);
         startGameButton.setOnClickListener(this);
@@ -24,7 +23,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.startGameButton: // IF USER HITS NEW GAME BUTTON ON MAIN MENU SCREEN
                 Toast.makeText(getBaseContext(),"Starting Game",Toast.LENGTH_LONG).show();
-                final Intent startGame = new Intent(this,MainActivity.class);
+                final Intent startGame = new Intent(this,LevelSelectorActivity.class);
                 startActivity(startGame);
                 break;
 
