@@ -20,6 +20,18 @@
     <string name="ofTilesText">Select Difficulty</string>
     <string name="LevelSelectorStartGameButton">Start Game</string>
 
+    <string name="answer0">cat</string>
+    <string name="answer1">dog</string>
+    <string name="answer2">mouse</string>
+    <string name="answer3">bunny</string>
+    <string name="answer4">ferret</string>
+    <string name="answer5">parrot</string>
+    <string name="answer6">elephant</string>
+    <string name="answer7">monkey</string>
+    <string name="answer8">rhino</string>
+    <string name="answer9">bear</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     />
