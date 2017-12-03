@@ -37,11 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicPlayer();
-
-        // MENUBUTTONS
-        tryAgainButton = findViewById(R.id.tryAgainButton);
-        newGameButton = findViewById(R.id.newGameButton);
-        endGameButton = findViewById(R.id.endGameButton);
         tryAgainButton.setOnClickListener(this);
         newGameButton.setOnClickListener(this);
         endGameButton.setOnClickListener(this);
@@ -73,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+
     }
 
 
