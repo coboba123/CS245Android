@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundtexture"
+    tools:context="cpp.cs245final.LevelSelectorActivity">
+
+    <Button
+        android:id="@+id/LevelSelectorStartGameButton"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="38dp"
+        android:text="@string/LevelSelectorStartGameButton"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="341dp"
+        android:layout_height="0dp"
+        android:layout_above="@+id/spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="158dp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/montserrat_subrayada"
+        android:gravity="center"
+        android:text="@string/ofTilesText"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/LevelSelectorStartGameButton"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        style="@style/Platform.Widget.AppCompat.Spinner"
+        android:layout_width="141dp"
+        android:layout_height="67dp"
+        android:layout_above="@+id/LevelSelectorStartGameButton"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575" />
+
+</android.support.constraint.ConstraintLayout>
