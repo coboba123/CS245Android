@@ -14,8 +14,6 @@ public class HighScoreActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
         final Intent goToMainMenu = new Intent(this,MenuActivity.class);
-
-
         final Button mainMenuButton = findViewById(R.id.hiScoreBackButton);
 
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
