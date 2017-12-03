@@ -27,15 +27,17 @@ import java.io.IOException;
 
 import static java.lang.Thread.sleep;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    static MediaPlayer mediaPlayer = null;
     public Button tryAgainButton;
     public Button newGameButton;
-    public Button endGameButton ;
+    public Button endGameButton;
     public Intent intent;
     public String difficultyLevel;
     private Button[] buttonArray;
-    public Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20;
+    public Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //ON GAME STARTUP MESSAGE
-        Toast.makeText(getBaseContext(),"Creating " + difficultyLevel+"x"+difficultyLevel+ " grid",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "Creating " + difficultyLevel + "x" + difficultyLevel + " grid", Toast.LENGTH_SHORT).show();
 
         //Initializing GameButtons
         b1 = findViewById(R.id.button1);
@@ -80,10 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b18 = findViewById(R.id.button18);
         b19 = findViewById(R.id.button19);
         b20 = findViewById(R.id.button20);
-        buttonArray = new Button[]{b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20};
+        buttonArray = new Button[]{b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20};
 
         //TESTING IF ALL BUTTONS SHOW UP
-        for(int i = 0; i < 20; i ++){
+        for (int i = 0; i < 20; i++) {
             buttonArray[i].setOnClickListener(this);
             buttonArray[i].setVisibility(View.VISIBLE);
             buttonArray[i].setBackgroundResource(R.drawable.buttonshape);
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void startGame(){
+    public void startGame() {
         int numOfTiles = Integer.parseInt(difficultyLevel);
 
         for (int i = 0; i < numOfTiles; i++) {
@@ -104,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
-    public void musicPlayer(){
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
+    public void musicPlayer() {
+        if (mediaPlayer == null)
+            mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
         ToggleButton toggle = findViewById(R.id.musicToggle);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -114,10 +116,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     mediaPlayer.start();
 
-                    Toast.makeText(getBaseContext(),"Music On",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Music On", Toast.LENGTH_SHORT).show();
                 } else {
                     mediaPlayer.pause();
-                    Toast.makeText(getBaseContext(),"Music Off",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Music Off", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -125,20 +127,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onClick(View view){
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tryAgainButton:
-                Toast.makeText(getBaseContext(),"hi cody",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "hi cody", Toast.LENGTH_LONG).show();
                 revertTiles();
                 break;
 
             case R.id.newGameButton:
-                Toast.makeText(getBaseContext(),"New Game!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "New Game!", Toast.LENGTH_LONG).show();
                 newGame();
                 break;
 
             case R.id.endGameButton:
-                Toast.makeText(getBaseContext(),"Game Terminated!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Game Terminated!", Toast.LENGTH_LONG).show();
                 endGame();
                 break;
 
