@@ -84,20 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b20 = findViewById(R.id.button20);
         buttonArray = new Button[]{b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20};
 
-        //TESTING IF ALL BUTTONS SHOW UP
-        for (int i = 0; i < 20; i++) {
-            buttonArray[i].setOnClickListener(this);
-            buttonArray[i].setVisibility(View.VISIBLE);
-            buttonArray[i].setBackgroundResource(R.drawable.buttonshape);
-            buttonArray[i].setTextColor(Color.parseColor("#00000000"));
-        }
+        startGame();
 
     }
 
+
+
     public void startGame() {
         int numOfTiles = Integer.parseInt(difficultyLevel);
-
-        for (int i = 0; i < numOfTiles; i++) {
+        for (int i = 0; i < 20; i++) {
             buttonArray[i].setOnClickListener(this);
             buttonArray[i].setVisibility(View.VISIBLE);
             buttonArray[i].setBackgroundResource(R.drawable.buttonshape);
@@ -127,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        String temp = "";
+
         switch (view.getId()) {
             case R.id.tryAgainButton:
                 Toast.makeText(getBaseContext(), "hi cody", Toast.LENGTH_LONG).show();
@@ -143,11 +140,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 endGame();
                 break;
 
+
+            //GAME BUTTON "Flip" function
+            case R.id.button1:
+
+                    buttonArray[0].setBackgroundResource(R.drawable.blankcard);
+                    buttonArray[0].setTextColor(Color.BLACK);
+                    buttonArray[0].setText("potato");
+
+                break;
+            case R.id.button2:
+                break;
+            case R.id.button3:
+                break;
+            case R.id.button4:
+                break;
+            case R.id.button5:
+                break;
+            case R.id.button6:
+                break;
+            case R.id.button7:
+                break;
+            case R.id.button8:
+                break;
+            case R.id.button9:
+                break;
+            case R.id.button10:
+                break;
+            case R.id.button11:
+                break;
+            case R.id.button12:
+                break;
+            case R.id.button13:
+                break;
+            case R.id.button14:
+                break;
+            case R.id.button15:
+                break;
+            case R.id.button16:
+                break;
+            case R.id.button17:
+                break;
+            case R.id.button18:
+                break;
+            case R.id.button19:
+                break;
+
+
+
+
             default:
                 break;
         }
 
     }
+
+
+
 
     private void revertTiles() {
     }
@@ -156,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void endGame() {
+        //End a game and show the answers
     }
 
 
