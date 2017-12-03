@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         tv.startAnimation(myanimation);
         iv.startAnimation(myanimation);
         final Intent i = new Intent(this,MenuActivity.class);
+
         Thread timer = new Thread(){
             public void run(){
                 try{
