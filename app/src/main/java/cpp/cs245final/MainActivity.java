@@ -1,5 +1,6 @@
 package cpp.cs245final;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -23,23 +24,41 @@ import android.widget.ToggleButton;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
+{
+    public Button tryAgainButton;
+    public Button newGameButton;
+    public Button endGameButton ;
+    public Intent intent;
+    public String difficultyLevel="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        musicPlayer();
 
-        final Button tryAgainButton = findViewById(R.id.tryAgainButton);
-        final Button newGameButton = findViewById(R.id.newGameButton);
-        final Button endGameButton = findViewById(R.id.endGameButton);
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
-
+        // MENUBUTTONS
+        tryAgainButton = findViewById(R.id.tryAgainButton);
+        newGameButton = findViewById(R.id.newGameButton);
+        endGameButton = findViewById(R.id.endGameButton);
         tryAgainButton.setOnClickListener(this);
         newGameButton.setOnClickListener(this);
         endGameButton.setOnClickListener(this);
 
+        //Receiving data from LevelSelectorActivity
+        intent = getIntent();
+        difficultyLevel = intent.getStringExtra("myKey");
+
+
+        //ON GAME STARTUP MESSAGE
+        Toast.makeText(getBaseContext(),"Creating " + difficultyLevel+"x"+difficultyLevel+ " grid",Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    public void musicPlayer(){
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.polymusic);
         ToggleButton toggle = findViewById(R.id.musicToggle);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -55,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
 
     @Override
     public void onClick(View view){

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,14 +38,11 @@ public class LevelSelectorActivity extends AppCompatActivity {
         startGameButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-//                String text = spinner.getSelectedItem().toString();
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("result", Integer.valueOf(text));
-//                setResult(Activity.RESULT_OK, resultIntent);
-//                finish();
+                String text = spinner.getSelectedItem().toString();
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                i.putExtra("myKey",text);
+                startActivity(i);
 
-
-                startActivity(goToMainActivity); // NEED TO PASS SPINNER VALUE WITH INTENT
             }
         });
 
