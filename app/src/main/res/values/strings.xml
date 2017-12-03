@@ -34,5 +34,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="score">SCORE :</string>
+    <string name="_00">00</string>
     />
 </resources>
