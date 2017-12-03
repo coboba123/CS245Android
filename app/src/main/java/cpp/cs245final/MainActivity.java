@@ -30,13 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Button newGameButton;
     public Button endGameButton ;
     public Intent intent;
-    public String difficultyLevel="";
+    public String difficultyLevel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicPlayer();
+
+        //Initalizing menuButtons
+        tryAgainButton = findViewById(R.id.tryAgainButton);
+        newGameButton = findViewById(R.id.newGameButton);
+        endGameButton = findViewById(R.id.endGameButton);
         tryAgainButton.setOnClickListener(this);
         newGameButton.setOnClickListener(this);
         endGameButton.setOnClickListener(this);
@@ -68,8 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
-
     }
 
 
