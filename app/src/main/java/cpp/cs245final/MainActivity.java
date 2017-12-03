@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
@@ -37,12 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String difficultyLevel;
     private Button[] buttonArray;
     public Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20;
-
+    public MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences settings = getSharedPreferences("myPrefs",0);
         musicPlayer();
 
         //Initializing menuButtons
@@ -85,6 +87,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonArray = new Button[]{b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20};
         startGame();
 
+
+
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        SharedPreferences settings = getSharedPreferences("myPrefs",0);
+        SharedPreferences.Editor editor = settings.edit();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        int pos = savedInstanceState.getInt("possition");
+        mediaPlayer.seekTo(pos); // RETURN SONG TO CURRENT POS
+        super.onRestoreInstanceState(savedInstanceState);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save the values you need from your textview into "outState"-object
+        super.onSaveInstanceState(outState);
+        outState.putInt("possition", mediaPlayer.getCurrentPosition()); // SAVE SONG AT CURRENT POS
+        //mediaPlayer.pause();
     }
 
 
@@ -110,9 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
                     mediaPlayer.start();
-
                     Toast.makeText(getBaseContext(), "Music On", Toast.LENGTH_SHORT).show();
                 } else {
                     mediaPlayer.pause();
@@ -129,17 +153,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.tryAgainButton:
                 Toast.makeText(getBaseContext(), "hi cody", Toast.LENGTH_LONG).show();
-                revertTiles();
+                //revertTiles();
                 break;
 
             case R.id.newGameButton:
                 Toast.makeText(getBaseContext(), "New Game!", Toast.LENGTH_LONG).show();
-                newGame();
+                //newGame();
                 break;
 
             case R.id.endGameButton:
                 Toast.makeText(getBaseContext(), "Game Terminated!", Toast.LENGTH_LONG).show();
-                endGame();
+                //endGame();
                 break;
 
 
@@ -199,16 +223,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-    private void revertTiles() {
-    }
-
-    private void newGame() {
-    }
-
-    private void endGame() {
-        //End a game and show the answers
-    }
 
 
 }
