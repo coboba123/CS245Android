@@ -60,14 +60,23 @@ public class GameEngine implements Parcelable {
         }
     }
 
+    //turns a card faceup internally
+    public void turnFaceUp(int x, int y){
+        isFlipped[x][y] = true;
+    }
+
     //takes in two x,y coordinates and checks if the strings are equal
     //If they are correct it tells the system they are both correct
     public boolean guess(int x1, int y1, int x2, int y2) {
         if (answers[x1][y1].equals(answers[x2][y2])) {
             isCorrect[x1][y1] = true;
             isCorrect[x2][y2] = true;
+            points += 2;
             return true;
         } else {
+            if (points > 0){
+                points--;
+            }
             return false;
         }
     }
