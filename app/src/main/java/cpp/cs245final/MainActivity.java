@@ -93,9 +93,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int numOfTiles = Integer.parseInt(difficultyLevel);
         for (int i = 0; i < 20; i++) {
             buttonArray[i].setOnClickListener(this);
-            buttonArray[i].setVisibility(View.VISIBLE);
+            buttonArray[i].setVisibility(View.INVISIBLE);
             buttonArray[i].setBackgroundResource(R.drawable.buttonshape);
             buttonArray[i].setTextColor(Color.parseColor("#00000000"));
+        }
+        for (int i = 0; i < numOfTiles; i++) {
+            buttonArray[i].setVisibility(View.VISIBLE);
         }
     }
 
