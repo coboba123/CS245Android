@@ -23,6 +23,7 @@ public class GameEngine implements Parcelable {
     private int width;
     private int height;
     private int totalAnswers = 0;
+    boolean gameOver = false;
 
     //The game engine accepts the x and y for its height and width depending
     //on what difficulty the user selects. Can eventually remove x and y parameters
