@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         buttonArray[4].setTextColor(Color.BLACK);
                         buttonArray[4].setText(mGameEngine.answers[0][4]);
                         mGameEngine.turnFaceUp(0, 4);
-                        guess1x = 4;
+                        guess1x = 0;
                         guess1y = 4;
                     } else if (guess2x == -1) {
                         buttonArray[4].setBackgroundResource(R.drawable.blankcard);
