@@ -1,35 +1,21 @@
 package cpp.cs245final;
 
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Handler;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
-import android.app.Service;
-import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnErrorListener;
-import android.os.Binder;
-import android.os.IBinder;
-import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import java.io.IOException;
 
 import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private GameEngine sGameEngine = null;
+    private GameEngine mGameEngine = null;
     static MediaPlayer mediaPlayer = null;
     public Button tryAgainButton;
     public Button newGameButton;
@@ -38,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String difficultyLevel;
     private Button[] buttonArray;
     public Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20;
+    private int guess1x = -1;
+    private int guess1y = -1;
+    private int guess2x = -1;
+    private int guess2y = -1;
     public MediaPlayer mp;
 
     @Override
@@ -60,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Receiving data from LevelSelectorActivity
         intent = getIntent();
         difficultyLevel = intent.getStringExtra("myKey");
-        if (sGameEngine == null)
-            sGameEngine = new GameEngine(4, 5, Integer.parseInt(difficultyLevel));
+        if (mGameEngine == null)
+            mGameEngine = new GameEngine(4, 5, Integer.parseInt(difficultyLevel));
 
 
         //ON GAME STARTUP MESSAGE
@@ -154,68 +144,94 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String temp = "";
 
         switch (view.getId()) {
+            //sets background to the card back and erases text.
+            //only if internally it wasn't guessed correctly
             case R.id.tryAgainButton:
                 Toast.makeText(getBaseContext(), "hi cody", Toast.LENGTH_LONG).show();
-                sGameEngine.revertTiles();
-                if (sGameEngine.isFlipped[0][0] == false) {
+                mGameEngine.revertTiles();
+                guess1x = -1;
+                guess1y = -1;
+                guess2x = -1;
+                guess2y = -1;
+                if (mGameEngine.isFlipped[0][0] == false) {
                     buttonArray[0].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[0].setText("");
                 }
-                if (sGameEngine.isFlipped[0][1] == false) {
+                if (mGameEngine.isFlipped[0][1] == false) {
                     buttonArray[1].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[1].setText("");
                 }
-                if (sGameEngine.isFlipped[0][2] == false) {
+                if (mGameEngine.isFlipped[0][2] == false) {
                     buttonArray[2].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[2].setText("");
                 }
-                if (sGameEngine.isFlipped[0][3] == false) {
+                if (mGameEngine.isFlipped[0][3] == false) {
                     buttonArray[3].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[3].setText("");
                 }
-                if (sGameEngine.isFlipped[0][4] == false) {
+                if (mGameEngine.isFlipped[0][4] == false) {
                     buttonArray[4].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[4].setText("");
                 }
-                if (sGameEngine.isFlipped[1][0] == false) {
+                if (mGameEngine.isFlipped[1][0] == false) {
                     buttonArray[5].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[5].setText("");
                 }
-                if (sGameEngine.isFlipped[1][1] == false) {
+                if (mGameEngine.isFlipped[1][1] == false) {
                     buttonArray[6].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[6].setText("");
                 }
-                if (sGameEngine.isFlipped[1][2] == false) {
+                if (mGameEngine.isFlipped[1][2] == false) {
                     buttonArray[7].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[7].setText("");
                 }
-                if (sGameEngine.isFlipped[1][3] == false) {
+                if (mGameEngine.isFlipped[1][3] == false) {
                     buttonArray[8].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[8].setText("");
                 }
-                if (sGameEngine.isFlipped[1][4] == false) {
+                if (mGameEngine.isFlipped[1][4] == false) {
                     buttonArray[9].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[9].setText("");
                 }
-                if (sGameEngine.isFlipped[2][0] == false) {
+                if (mGameEngine.isFlipped[2][0] == false) {
                     buttonArray[10].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[10].setText("");
                 }
-                if (sGameEngine.isFlipped[2][1] == false) {
+                if (mGameEngine.isFlipped[2][1] == false) {
                     buttonArray[11].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[11].setText("");
                 }
-                if (sGameEngine.isFlipped[2][2] == false) {
+                if (mGameEngine.isFlipped[2][2] == false) {
                     buttonArray[12].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[12].setText("");
                 }
-                if (sGameEngine.isFlipped[2][3] == false) {
+                if (mGameEngine.isFlipped[2][3] == false) {
                     buttonArray[13].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[13].setText("");
                 }
-                if (sGameEngine.isFlipped[2][4] == false) {
+                if (mGameEngine.isFlipped[2][4] == false) {
                     buttonArray[14].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[14].setText("");
                 }
-                if (sGameEngine.isFlipped[3][0] == false) {
+                if (mGameEngine.isFlipped[3][0] == false) {
                     buttonArray[15].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[15].setText("");
                 }
-                if (sGameEngine.isFlipped[3][1] == false) {
+                if (mGameEngine.isFlipped[3][1] == false) {
                     buttonArray[16].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[16].setText("");
                 }
-                if (sGameEngine.isFlipped[3][2] == false) {
+                if (mGameEngine.isFlipped[3][2] == false) {
                     buttonArray[17].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[17].setText("");
                 }
-                if (sGameEngine.isFlipped[3][3] == false) {
+                if (mGameEngine.isFlipped[3][3] == false) {
                     buttonArray[18].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[18].setText("");
                 }
-                if (sGameEngine.isFlipped[3][4] == false) {
+                if (mGameEngine.isFlipped[3][4] == false) {
                     buttonArray[19].setBackgroundResource(R.drawable.buttonshape);
+                    buttonArray[19].setText("");
                 }
 
 
@@ -235,145 +251,489 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             //GAME BUTTON "Flip" function
+            //stores the first two buttons as guesses, and compares them. If false, stops
             case R.id.button1:
 
-                buttonArray[0].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[0].setTextColor(Color.BLACK);
-                buttonArray[0].setText(sGameEngine.answers[0][0]);
-                sGameEngine.turnFaceUp(0, 0);
+                if (mGameEngine.isFlipped[0][0] == false) {
+                    if (guess1x == -1) {
+                        buttonArray[0].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[0].setTextColor(Color.BLACK);
+                        buttonArray[0].setText(mGameEngine.answers[0][0]);
+                        mGameEngine.turnFaceUp(0, 0);
+                        guess1x = 0;
+                        guess1y = 0;
+                    } else if (guess2x == -1) {
+                        buttonArray[0].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[0].setTextColor(Color.BLACK);
+                        buttonArray[0].setText(mGameEngine.answers[0][0]);
+                        mGameEngine.turnFaceUp(0, 0);
+                        guess2x = 0;
+                        guess2y = 0;
+                    }
+                }
+
 
                 break;
             case R.id.button2:
-                buttonArray[1].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[1].setTextColor(Color.BLACK);
-                buttonArray[1].setText(sGameEngine.answers[0][1]);
-                sGameEngine.turnFaceUp(0, 1);
+//                buttonArray[1].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[1].setTextColor(Color.BLACK);
+//                buttonArray[1].setText(mGameEngine.answers[0][1]);
+//                mGameEngine.turnFaceUp(0, 1);
 
+
+                if (mGameEngine.isFlipped[0][1] == false) {
+                    if (guess1x == -1) {
+                        buttonArray[1].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[1].setTextColor(Color.BLACK);
+                        buttonArray[1].setText(mGameEngine.answers[0][1]);
+                        mGameEngine.turnFaceUp(0, 1);
+                        guess1x = 0;
+                        guess1y = 1;
+                    } else if (guess2x == -1) {
+                        buttonArray[1].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[1].setTextColor(Color.BLACK);
+                        buttonArray[1].setText(mGameEngine.answers[0][1]);
+                        mGameEngine.turnFaceUp(0, 1);
+                        guess2x = 0;
+                        guess2y = 1;
+                    }
+                }
                 break;
             case R.id.button3:
-                buttonArray[2].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[2].setTextColor(Color.BLACK);
-                buttonArray[2].setText(sGameEngine.answers[0][2]);
-                sGameEngine.turnFaceUp(0, 2);
+//                buttonArray[2].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[2].setTextColor(Color.BLACK);
+//                buttonArray[2].setText(mGameEngine.answers[0][2]);
+//                mGameEngine.turnFaceUp(0, 2);
+
+                if(mGameEngine.isFlipped[0][2] == false) {
+                    if(guess1x == -1){
+                        buttonArray[2].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[2].setTextColor(Color.BLACK);
+                        buttonArray[2].setText(mGameEngine.answers[0][2]);
+                        mGameEngine.turnFaceUp(0, 2);
+                        guess1x = 0;
+                        guess1y = 2;
+                    } else if (guess2x == -1){
+                        buttonArray[2].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[2].setTextColor(Color.BLACK);
+                        buttonArray[2].setText(mGameEngine.answers[0][2]);
+                        mGameEngine.turnFaceUp(0, 2);
+                        guess2x = 0;
+                        guess2y = 2;
+                    }
+                }
 
                 break;
             case R.id.button4:
-                buttonArray[3].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[3].setTextColor(Color.BLACK);
-                buttonArray[3].setText(sGameEngine.answers[0][3]);
-                sGameEngine.turnFaceUp(0, 3);
+//                buttonArray[3].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[3].setTextColor(Color.BLACK);
+//                buttonArray[3].setText(mGameEngine.answers[0][3]);
+//                mGameEngine.turnFaceUp(0, 3);
+                if(mGameEngine.isFlipped[0][3] == false) {
+                    if(guess1x == -1){
+                        buttonArray[3].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[3].setTextColor(Color.BLACK);
+                        buttonArray[3].setText(mGameEngine.answers[0][3]);
+                        mGameEngine.turnFaceUp(0, 3);
+                        guess1x = 0;
+                        guess1y = 3;
+                    } else if (guess2x == -1){
+                        buttonArray[3].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[3].setTextColor(Color.BLACK);
+                        buttonArray[3].setText(mGameEngine.answers[0][3]);
+                        mGameEngine.turnFaceUp(0, 3);
+                        guess2x = 0;
+                        guess2y = 3;
+                    }
+                }
 
                 break;
             case R.id.button5:
-                buttonArray[4].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[4].setTextColor(Color.BLACK);
-                buttonArray[4].setText(sGameEngine.answers[0][4]);
-                sGameEngine.turnFaceUp(0, 4);
+//                buttonArray[4].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[4].setTextColor(Color.BLACK);
+//                buttonArray[4].setText(mGameEngine.answers[0][4]);
+//                mGameEngine.turnFaceUp(0, 4);
+                if(mGameEngine.isFlipped[0][4] == false) {
+                    if(guess1x == -1){
+                        buttonArray[4].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[4].setTextColor(Color.BLACK);
+                        buttonArray[4].setText(mGameEngine.answers[0][4]);
+                        mGameEngine.turnFaceUp(0, 4);
+                        guess1x = 4;
+                        guess1y = 4;
+                    } else if (guess2x == -1){
+                        buttonArray[4].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[4].setTextColor(Color.BLACK);
+                        buttonArray[4].setText(mGameEngine.answers[0][4]);
+                        mGameEngine.turnFaceUp(0, 4);
+                        guess2x = 0;
+                        guess2y = 4;
+                    }
+                }
 
                 break;
             case R.id.button6:
-                buttonArray[5].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[5].setTextColor(Color.BLACK);
-                buttonArray[5].setText(sGameEngine.answers[1][0]);
-                sGameEngine.turnFaceUp(1, 0);
+//                buttonArray[5].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[5].setTextColor(Color.BLACK);
+//                buttonArray[5].setText(mGameEngine.answers[1][0]);
+//                mGameEngine.turnFaceUp(1, 0);
+                if(mGameEngine.isFlipped[1][0] == false) {
+                    if(guess1x == -1){
+                        buttonArray[5].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[5].setTextColor(Color.BLACK);
+                        buttonArray[5].setText(mGameEngine.answers[1][0]);
+                        mGameEngine.turnFaceUp(1, 0);
+                        guess1x = 1;
+                        guess1y = 0;
+                    } else if (guess2x == -1){
+                        buttonArray[5].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[5].setTextColor(Color.BLACK);
+                        buttonArray[5].setText(mGameEngine.answers[1][0]);
+                        mGameEngine.turnFaceUp(1, 0);
+                        guess2x = 1;
+                        guess2y = 0;
+                    }
+                }
 
                 break;
             case R.id.button7:
-                buttonArray[6].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[6].setTextColor(Color.BLACK);
-                buttonArray[6].setText(sGameEngine.answers[1][1]);
-                sGameEngine.turnFaceUp(1, 1);
+//                buttonArray[6].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[6].setTextColor(Color.BLACK);
+//                buttonArray[6].setText(mGameEngine.answers[1][1]);
+//                mGameEngine.turnFaceUp(1, 1);
+                if(mGameEngine.isFlipped[1][1] == false) {
+                    if(guess1x == -1){
+                        buttonArray[6].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[6].setTextColor(Color.BLACK);
+                        buttonArray[6].setText(mGameEngine.answers[1][1]);
+                        mGameEngine.turnFaceUp(1, 1);
+                        guess1x = 1;
+                        guess1y = 1;
+                    } else if (guess2x == -1){
+                        buttonArray[6].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[6].setTextColor(Color.BLACK);
+                        buttonArray[6].setText(mGameEngine.answers[1][1]);
+                        mGameEngine.turnFaceUp(1, 1);
+                        guess2x = 1;
+                        guess2y = 1;
+                    }
+                }
 
                 break;
             case R.id.button8:
-                buttonArray[7].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[7].setTextColor(Color.BLACK);
-                buttonArray[7].setText(sGameEngine.answers[1][2]);
-                sGameEngine.turnFaceUp(1, 2);
+//                buttonArray[7].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[7].setTextColor(Color.BLACK);
+//                buttonArray[7].setText(mGameEngine.answers[1][2]);
+//                mGameEngine.turnFaceUp(1, 2);
+                if(mGameEngine.isFlipped[1][2] == false) {
+                    if(guess1x == -1){
+                        buttonArray[7].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[7].setTextColor(Color.BLACK);
+                        buttonArray[7].setText(mGameEngine.answers[1][2]);
+                        mGameEngine.turnFaceUp(1, 2);
+                        guess1x = 1;
+                        guess1y = 2;
+                    } else if (guess2x == -1){
+                        buttonArray[7].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[7].setTextColor(Color.BLACK);
+                        buttonArray[7].setText(mGameEngine.answers[1][2]);
+                        mGameEngine.turnFaceUp(1, 2);
+                        guess2x = 1;
+                        guess2y = 2;
+                    }
+                }
 
                 break;
             case R.id.button9:
-                buttonArray[8].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[8].setTextColor(Color.BLACK);
-                buttonArray[8].setText(sGameEngine.answers[1][3]);
-                sGameEngine.turnFaceUp(1, 3);
+//                buttonArray[8].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[8].setTextColor(Color.BLACK);
+//                buttonArray[8].setText(mGameEngine.answers[1][3]);
+//                mGameEngine.turnFaceUp(1, 3);
+                if(mGameEngine.isFlipped[1][3] == false) {
+                    if(guess1x == -1){
+                        buttonArray[8].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[8].setTextColor(Color.BLACK);
+                        buttonArray[8].setText(mGameEngine.answers[1][3]);
+                        mGameEngine.turnFaceUp(1, 3);
+                        guess1x = 1;
+                        guess1y = 3;
+                    } else if (guess2x == -1){
+                        buttonArray[8].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[8].setTextColor(Color.BLACK);
+                        buttonArray[8].setText(mGameEngine.answers[1][3]);
+                        mGameEngine.turnFaceUp(1, 3);
+                        guess2x = 1;
+                        guess2y = 3;
+                    }
+                }
 
                 break;
             case R.id.button10:
-                buttonArray[9].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[9].setTextColor(Color.BLACK);
-                buttonArray[9].setText(sGameEngine.answers[1][4]);
-                sGameEngine.turnFaceUp(1, 4);
+//                buttonArray[9].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[9].setTextColor(Color.BLACK);
+//                buttonArray[9].setText(mGameEngine.answers[1][4]);
+//                mGameEngine.turnFaceUp(1, 4);
+                if(mGameEngine.isFlipped[1][4] == false) {
+                    if(guess1x == -1){
+                        buttonArray[9].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[9].setTextColor(Color.BLACK);
+                        buttonArray[9].setText(mGameEngine.answers[1][4]);
+                        mGameEngine.turnFaceUp(1, 4);
+                        guess1x = 1;
+                        guess1y = 4;
+                    } else if (guess2x == -1){
+                        buttonArray[9].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[9].setTextColor(Color.BLACK);
+                        buttonArray[9].setText(mGameEngine.answers[1][4]);
+                        mGameEngine.turnFaceUp(1, 4);
+                        guess2x = 1;
+                        guess2y = 4;
+                    }
+                }
 
                 break;
             case R.id.button11:
-                buttonArray[10].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[10].setTextColor(Color.BLACK);
-                buttonArray[10].setText(sGameEngine.answers[2][0]);
-                sGameEngine.turnFaceUp(2, 0);
+//                buttonArray[10].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[10].setTextColor(Color.BLACK);
+//                buttonArray[10].setText(mGameEngine.answers[2][0]);
+//                mGameEngine.turnFaceUp(2, 0);
+                if(mGameEngine.isFlipped[2][0] == false) {
+                    if(guess1x == -1){
+                        buttonArray[10].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[10].setTextColor(Color.BLACK);
+                        buttonArray[10].setText(mGameEngine.answers[2][0]);
+                        mGameEngine.turnFaceUp(2, 0);
+                        guess1x = 2;
+                        guess1y = 0;
+                    } else if (guess2x == -1){
+                        buttonArray[10].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[10].setTextColor(Color.BLACK);
+                        buttonArray[10].setText(mGameEngine.answers[2][0]);
+                        mGameEngine.turnFaceUp(2, 0);
+                        guess2x = 2;
+                        guess2y = 0;
+                    }
+                }
 
                 break;
             case R.id.button12:
-                buttonArray[11].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[11].setTextColor(Color.BLACK);
-                buttonArray[11].setText(sGameEngine.answers[2][1]);
-                sGameEngine.turnFaceUp(2, 1);
+//                buttonArray[11].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[11].setTextColor(Color.BLACK);
+//                buttonArray[11].setText(mGameEngine.answers[2][1]);
+//                mGameEngine.turnFaceUp(2, 1);
+                if(mGameEngine.isFlipped[2][1] == false) {
+                    if(guess1x == -1){
+                        buttonArray[11].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[11].setTextColor(Color.BLACK);
+                        buttonArray[11].setText(mGameEngine.answers[2][1]);
+                        mGameEngine.turnFaceUp(2, 1);
+                        guess1x = 2;
+                        guess1y = 1;
+                    } else if (guess2x == -1){
+                        buttonArray[11].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[11].setTextColor(Color.BLACK);
+                        buttonArray[11].setText(mGameEngine.answers[2][1]);
+                        mGameEngine.turnFaceUp(2, 1);
+                        guess2x = 2;
+                        guess2y = 1;
+                    }
+                }
 
                 break;
             case R.id.button13:
-                buttonArray[12].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[12].setTextColor(Color.BLACK);
-                buttonArray[12].setText(sGameEngine.answers[2][2]);
-                sGameEngine.turnFaceUp(2, 2);
+//                buttonArray[12].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[12].setTextColor(Color.BLACK);
+//                buttonArray[12].setText(mGameEngine.answers[2][2]);
+//                mGameEngine.turnFaceUp(2, 2);
+                if(mGameEngine.isFlipped[2][2] == false) {
+                    if(guess1x == -1){
+                        buttonArray[12].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[12].setTextColor(Color.BLACK);
+                        buttonArray[12].setText(mGameEngine.answers[2][2]);
+                        mGameEngine.turnFaceUp(2, 2);
+                        guess1x = 2;
+                        guess1y = 2;
+                    } else if (guess2x == -1){
+                        buttonArray[12].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[12].setTextColor(Color.BLACK);
+                        buttonArray[12].setText(mGameEngine.answers[2][2]);
+                        mGameEngine.turnFaceUp(2, 2);
+                        guess2x = 2;
+                        guess2y = 2;
+                    }
+                }
 
                 break;
             case R.id.button14:
-                buttonArray[13].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[13].setTextColor(Color.BLACK);
-                buttonArray[13].setText(sGameEngine.answers[2][3]);
-                sGameEngine.turnFaceUp(2, 3);
+//                buttonArray[13].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[13].setTextColor(Color.BLACK);
+//                buttonArray[13].setText(mGameEngine.answers[2][3]);
+//                mGameEngine.turnFaceUp(2, 3);
+                if(mGameEngine.isFlipped[2][3] == false) {
+                    if(guess1x == -1){
+                        buttonArray[13].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[13].setTextColor(Color.BLACK);
+                        buttonArray[13].setText(mGameEngine.answers[2][3]);
+                        mGameEngine.turnFaceUp(2, 3);
+                        guess1x = 2;
+                        guess1y = 3;
+                    } else if (guess2x == -1){
+                        buttonArray[13].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[13].setTextColor(Color.BLACK);
+                        buttonArray[13].setText(mGameEngine.answers[2][3]);
+                        mGameEngine.turnFaceUp(2, 3);
+                        guess2x = 2;
+                        guess2y = 3;
+                    }
+                }
 
                 break;
             case R.id.button15:
-                buttonArray[14].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[14].setTextColor(Color.BLACK);
-                buttonArray[14].setText(sGameEngine.answers[2][4]);
-                sGameEngine.turnFaceUp(2, 4);
+//                buttonArray[14].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[14].setTextColor(Color.BLACK);
+//                buttonArray[14].setText(mGameEngine.answers[2][4]);
+//                mGameEngine.turnFaceUp(2, 4);
+                if(mGameEngine.isFlipped[2][4] == false) {
+                    if(guess1x == -1){
+                        buttonArray[14].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[14].setTextColor(Color.BLACK);
+                        buttonArray[14].setText(mGameEngine.answers[2][4]);
+                        mGameEngine.turnFaceUp(2, 4);
+                        guess1x = 2;
+                        guess1y = 4;
+                    } else if (guess2x == -1){
+                        buttonArray[14].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[14].setTextColor(Color.BLACK);
+                        buttonArray[14].setText(mGameEngine.answers[2][4]);
+                        mGameEngine.turnFaceUp(2, 4);
+                        guess2x = 2;
+                        guess2y = 4;
+                    }
+                }
 
                 break;
             case R.id.button16:
-                buttonArray[15].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[15].setTextColor(Color.BLACK);
-                buttonArray[15].setText(sGameEngine.answers[3][0]);
-                sGameEngine.turnFaceUp(3, 0);
+//                buttonArray[15].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[15].setTextColor(Color.BLACK);
+//                buttonArray[15].setText(mGameEngine.answers[3][0]);
+//                mGameEngine.turnFaceUp(3, 0);
+
+                if(mGameEngine.isFlipped[3][0] == false) {
+                    if(guess1x == -1){
+                        buttonArray[15].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[15].setTextColor(Color.BLACK);
+                        buttonArray[15].setText(mGameEngine.answers[3][0]);
+                        mGameEngine.turnFaceUp(3, 0);
+                        guess1x = 3;
+                        guess1y = 0;
+                    } else if (guess2x == -1){
+                        buttonArray[15].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[15].setTextColor(Color.BLACK);
+                        buttonArray[15].setText(mGameEngine.answers[3][0]);
+                        mGameEngine.turnFaceUp(3, 0);
+                        guess2x = 3;
+                        guess2y = 0;
+                    }
+                }
 
                 break;
             case R.id.button17:
-                buttonArray[16].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[16].setTextColor(Color.BLACK);
-                buttonArray[16].setText(sGameEngine.answers[3][1]);
-                sGameEngine.turnFaceUp(3, 1);
+//                buttonArray[16].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[16].setTextColor(Color.BLACK);
+//                buttonArray[16].setText(mGameEngine.answers[3][1]);
+//                mGameEngine.turnFaceUp(3, 1);
+
+                if(mGameEngine.isFlipped[3][1] == false) {
+                    if(guess1x == -1){
+                        buttonArray[16].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[16].setTextColor(Color.BLACK);
+                        buttonArray[16].setText(mGameEngine.answers[3][1]);
+                        mGameEngine.turnFaceUp(3, 1);
+                        guess1x = 3;
+                        guess1y = 1;
+                    } else if (guess2x == -1){
+                        buttonArray[16].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[16].setTextColor(Color.BLACK);
+                        buttonArray[16].setText(mGameEngine.answers[3][1]);
+                        mGameEngine.turnFaceUp(3, 1);
+                        guess2x = 3;
+                        guess2y = 1;
+                    }
+                }
 
                 break;
             case R.id.button18:
-                buttonArray[17].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[17].setTextColor(Color.BLACK);
-                buttonArray[17].setText(sGameEngine.answers[3][2]);
-                sGameEngine.turnFaceUp(3, 2);
+//                buttonArray[17].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[17].setTextColor(Color.BLACK);
+//                buttonArray[17].setText(mGameEngine.answers[3][2]);
+//                mGameEngine.turnFaceUp(3, 2);
+                if(mGameEngine.isFlipped[3][2] == false) {
+                    if(guess1x == -1){
+                        buttonArray[17].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[17].setTextColor(Color.BLACK);
+                        buttonArray[17].setText(mGameEngine.answers[3][2]);
+                        mGameEngine.turnFaceUp(3, 2);
+                        guess1x = 3;
+                        guess1y = 2;
+                    } else if (guess2x == -1){
+                        buttonArray[17].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[17].setTextColor(Color.BLACK);
+                        buttonArray[17].setText(mGameEngine.answers[3][2]);
+                        mGameEngine.turnFaceUp(3, 2);
+                        guess2x = 3;
+                        guess2y = 2;
+                    }
+                }
 
                 break;
             case R.id.button19:
-                buttonArray[18].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[18].setTextColor(Color.BLACK);
-                buttonArray[18].setText(sGameEngine.answers[3][3]);
-                sGameEngine.turnFaceUp(3, 3);
+//                buttonArray[18].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[18].setTextColor(Color.BLACK);
+//                buttonArray[18].setText(mGameEngine.answers[3][3]);
+//                mGameEngine.turnFaceUp(3, 3);
+
+                if(mGameEngine.isFlipped[3][3] == false) {
+                    if(guess1x == -1){
+                        buttonArray[18].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[18].setTextColor(Color.BLACK);
+                        buttonArray[18].setText(mGameEngine.answers[3][3]);
+                        mGameEngine.turnFaceUp(3, 3);
+                        guess1x = 3;
+                        guess1y = 3;
+                    } else if (guess2x == -1){
+                        buttonArray[18].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[18].setTextColor(Color.BLACK);
+                        buttonArray[18].setText(mGameEngine.answers[3][3]);
+                        mGameEngine.turnFaceUp(3, 3);
+                        guess2x = 3;
+                        guess2y = 3;
+                    }
+                }
 
                 break;
             case R.id.button20:
-                buttonArray[19].setBackgroundResource(R.drawable.blankcard);
-                buttonArray[19].setTextColor(Color.BLACK);
-                buttonArray[19].setText(sGameEngine.answers[3][4]);
-                sGameEngine.turnFaceUp(3, 4);
+//                buttonArray[19].setBackgroundResource(R.drawable.blankcard);
+//                buttonArray[19].setTextColor(Color.BLACK);
+//                buttonArray[19].setText(mGameEngine.answers[3][4]);
+//                mGameEngine.turnFaceUp(3, 4);
+
+                if(mGameEngine.isFlipped[3][4] == false) {
+                    if(guess1x == -1){
+                        buttonArray[19].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[19].setTextColor(Color.BLACK);
+                        buttonArray[19].setText(mGameEngine.answers[3][4]);
+                        mGameEngine.turnFaceUp(3, 4);
+                        guess1x = 3;
+                        guess1y = 4;
+                    } else if (guess2x == -1){
+                        buttonArray[19].setBackgroundResource(R.drawable.blankcard);
+                        buttonArray[19].setTextColor(Color.BLACK);
+                        buttonArray[19].setText(mGameEngine.answers[3][4]);
+                        mGameEngine.turnFaceUp(3, 4);
+                        guess2x = 3;
+                        guess2y = 4;
+                    }
+                }
 
                 break;
 
@@ -382,6 +742,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
+        if (guess1x != -1 && guess2x != -1) {
+           if(mGameEngine.guess(guess1x, guess1y, guess2x, guess2y)){
+               guess1x = -1;
+               guess1y = -1;
+               guess2x = -1;
+               guess2y = -1;
+           }
+        }
     }
 
 
