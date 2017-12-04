@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.media.MediaPlayer;
 import android.widget.ToggleButton;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int guess2x = -1;
     private int guess2y = -1;
     public MediaPlayer mp;
+    TextView score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //ON GAME STARTUP MESSAGE
         Toast.makeText(getBaseContext(), "Creating " + difficultyLevel + "x" + difficultyLevel + " grid", Toast.LENGTH_SHORT).show();
+
+        //initialize score text view
+        score = findViewById(R.id.scoreNumber);
 
         //Initializing GameButtons
         b1 = findViewById(R.id.button1);
@@ -247,6 +252,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.endGameButton:
                 Toast.makeText(getBaseContext(), "Game Terminated!", Toast.LENGTH_LONG).show();
                 //endGame();
+                for(int x =0; x < 4; x++){
+                    for (int y = 0; y < 5; y++){
+
+                    }
+                }
                 break;
 
 
@@ -741,7 +751,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-
+        //checks after a click if there are 2 guesses queued up. If there are, it compares them
+        //If it is correct, guesses are reset to -1 so the user can continue guessing
+        //the guess method also updates points.
         if (guess1x != -1 && guess2x != -1) {
            if(mGameEngine.guess(guess1x, guess1y, guess2x, guess2y)){
                guess1x = -1;
@@ -749,6 +761,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                guess2x = -1;
                guess2y = -1;
            }
+           score.setText(((Integer) mGameEngine.points).toString());
         }
     }
 

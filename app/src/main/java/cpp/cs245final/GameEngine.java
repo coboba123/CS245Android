@@ -15,7 +15,7 @@ public class GameEngine implements Parcelable {
     boolean isFlipped[][];
     boolean isCorrect[][];
     String answers[][];
-    private int points = 0;
+    int points = 0;
     private int difficulty = 0;
     private int amountAns[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String possibleAns[] = {"cat", "dog", "mouse", "bunny", "ferret", "parrot", "lion", "monkey", "rhino", "bear"};
