@@ -12,8 +12,8 @@ import java.util.Random;
  */
 
 public class GameEngine implements Parcelable {
-    private boolean isFlipped[][];
-    private boolean isCorrect[][];
+    boolean isFlipped[][];
+    boolean isCorrect[][];
     String answers[][];
     private int points = 0;
     private int difficulty = 0;
@@ -83,10 +83,10 @@ public class GameEngine implements Parcelable {
     }
 
     //turns everything that is not correct facedown.
-    public void turnFacedown() {
+    public void revertTiles() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (isCorrect[i][j] != true) {
+                if (isCorrect[i][j] == false) {
                     isFlipped[i][j] = false;
                 }
             }
