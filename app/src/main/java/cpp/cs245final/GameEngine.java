@@ -14,15 +14,15 @@ import java.util.Random;
 public class GameEngine implements Parcelable {
     private boolean isFlipped[][];
     private boolean isCorrect[][];
-    private String answers[][];
+    String answers[][];
     private int points = 0;
     private int difficulty = 0;
     private int amountAns[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    private String possibleAns[] = {"cat", "dog", "mouse", "bunny", "ferret", "parrot", "elephant", "monkey", "rhino", "bear"};
+    private String possibleAns[] = {"cat", "dog", "mouse", "bunny", "ferret", "parrot", "lion", "monkey", "rhino", "bear"};
     private Random rand = new Random((System.currentTimeMillis()));
     private int width;
     private int height;
-
+    private int totalAnswers = 0;
 
     //The game engine accepts the x and y for its height and width depending
     //on what difficulty the user selects. Can eventually remove x and y parameters
@@ -40,28 +40,29 @@ public class GameEngine implements Parcelable {
         int num = rand.nextInt(difficulty / 2 - 1);
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                isFlipped[x][y] = false;
-                isCorrect[x][y] = false;
+                isFlipped[i][j] = false;
+                isCorrect[i][j] = false;
                 //randomly decides what word to try and place
-                num = rand.nextInt(difficulty / 2 - 1);
+                num = rand.nextInt((difficulty / 2));
                 //if that word has already been used, try a different random word
                 //This is highly inefficient so if anyone has a better solution please change.
-                while (amountAns[num] > 2)
-                    num = rand.nextInt(difficulty / 2 - 1);
-                if (amountAns[num] < 2) {
+                while (amountAns[num] >= 2 && totalAnswers < difficulty) {
+                    num = rand.nextInt((difficulty / 2));
+                }
+                if (amountAns[num] < 2 && totalAnswers < difficulty) {
                     //gets the word from the bank at the index given by num.
-                    answers[x][y] = possibleAns[num];
+                    answers[i][j] = possibleAns[num];
                     //tells that this word has been used an additional time.
                     amountAns[num]++;
 
                 }
-
+                totalAnswers++;
             }
         }
     }
 
     //turns a card faceup internally
-    public void turnFaceUp(int x, int y){
+    public void turnFaceUp(int x, int y) {
         isFlipped[x][y] = true;
     }
 
@@ -74,7 +75,7 @@ public class GameEngine implements Parcelable {
             points += 2;
             return true;
         } else {
-            if (points > 0){
+            if (points > 0) {
                 points--;
             }
             return false;
@@ -82,10 +83,10 @@ public class GameEngine implements Parcelable {
     }
 
     //turns everything that is not correct facedown.
-    public void turnFacedown(){
-        for(int i = 0; i < width; i++ ){
-            for(int j = 0; j < height; j++){
-                if (isCorrect[i][j] != true){
+    public void turnFacedown() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (isCorrect[i][j] != true) {
                     isFlipped[i][j] = false;
                 }
             }
