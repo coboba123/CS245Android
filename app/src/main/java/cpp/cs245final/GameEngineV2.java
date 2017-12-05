@@ -8,70 +8,67 @@ import java.util.Random;
 
 /**
  * Created by matth on 12/2/2017.
+ * redid the game engine without the 2d arrays to be able to parse them
  */
 
-public class GameEngine implements Parcelable {
-    boolean isFlipped[][];
-    boolean isCorrect[][];
-    String answers[][];
+public class GameEngineV2 implements Parcelable {
+    boolean isFlipped[];
+    boolean isCorrect[];
+    String answers[];
     int points = 0;
     private int difficulty = 0;
     private int amountAns[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String possibleAns[] = {"cat", "dog", "mouse", "bunny", "ferret", "parrot", "lion", "monkey", "rhino", "bear"};
     private Random rand = new Random((System.currentTimeMillis()));
-    private int width;
-    private int height;
     private int totalAnswers = 0;
     boolean gameOver = false;
 
     //The game engine accepts the x and y for its height and width depending
     //on what difficulty the user selects. Can eventually remove x and y parameters
     //and create array based on difficulty alone.
-    public GameEngine(int x, int y, int dif) {
-        width = x;
-        height = y;
-        isFlipped = new boolean[x][y];
-        isCorrect = new boolean[x][y];
-        answers = new String[x][y];
+    public GameEngineV2(int dif) {
+        isFlipped = new boolean[20];
+        isCorrect = new boolean[20];
+        answers = new String[20];
         difficulty = dif;
 
         //this ensures that the random number will only be equal to a number between 0 and the
         //max number of pairs there can be for this difficulty.
         int num = rand.nextInt(difficulty / 2 - 1);
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                isFlipped[i][j] = false;
-                isCorrect[i][j] = false;
-                //randomly decides what word to try and place
-                num = rand.nextInt((difficulty / 2));
-                //if that word has already been used, try a different random word
-                //This is highly inefficient so if anyone has a better solution please change.
-                while (amountAns[num] >= 2 && totalAnswers < difficulty) {
-                    num = rand.nextInt((difficulty / 2));
-                }
-                if (amountAns[num] < 2 && totalAnswers < difficulty) {
-                    //gets the word from the bank at the index given by num.
-                    answers[i][j] = possibleAns[num];
-                    //tells that this word has been used an additional time.
-                    amountAns[num]++;
+        for (int i = 0; i < 20; i++) {
 
-                }
-                totalAnswers++;
+            isFlipped[i] = false;
+            isCorrect[i] = false;
+            //randomly decides what word to try and place
+            num = rand.nextInt((difficulty / 2));
+            //if that word has already been used, try a different random word
+            //This is highly inefficient so if anyone has a better solution please change.
+            while (amountAns[num] >= 2 && totalAnswers < difficulty) {
+                num = rand.nextInt((difficulty / 2));
             }
+            if (amountAns[num] < 2 && totalAnswers < difficulty) {
+                //gets the word from the bank at the index given by num.
+                answers[i] = possibleAns[num];
+                //tells that this word has been used an additional time.
+                amountAns[num]++;
+
+            }
+            totalAnswers++;
+
         }
     }
 
     //turns a card faceup internally
-    public void turnFaceUp(int x, int y) {
-        isFlipped[x][y] = true;
+    public void turnFaceUp(int x) {
+        isFlipped[x] = true;
     }
 
     //takes in two x,y coordinates and checks if the strings are equal
     //If they are correct it tells the system they are both correct
-    public boolean guess(int x1, int y1, int x2, int y2) {
-        if (answers[x1][y1].equals(answers[x2][y2])) {
-            isCorrect[x1][y1] = true;
-            isCorrect[x2][y2] = true;
+    public boolean guess(int x, int y) {
+        if (answers[x].equals(answers[y])) {
+            isCorrect[x] = true;
+            isCorrect[y] = true;
             points += 2;
             return true;
         } else {
@@ -84,12 +81,12 @@ public class GameEngine implements Parcelable {
 
     //turns everything that is not correct facedown.
     public void revertTiles() {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                if (isCorrect[i][j] == false) {
-                    isFlipped[i][j] = false;
-                }
+        for (int i = 0; i < 20; i++) {
+
+            if (isCorrect[i] == false) {
+                isFlipped[i] = false;
             }
+
         }
     }
 
@@ -97,8 +94,16 @@ public class GameEngine implements Parcelable {
     //when bundles in save instance state.
 
     //Recreate object from parcel
-    protected GameEngine(Parcel in) {
+    protected GameEngineV2(Parcel in) {
         points = in.readInt();
+        in.readBooleanArray(isCorrect);
+        in.readBooleanArray(isFlipped);
+        in.readStringArray(answers);
+        difficulty = in.readInt();
+        in.readStringArray(possibleAns);
+        totalAnswers = in.readInt();
+        gameOver = in.readByte() != 0x00;
+
     }
 
 
@@ -125,13 +130,15 @@ public class GameEngine implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(points);
-        int cursor = 0;
-        for(int w = 0; w < width; w++){
-            for(int h = 0; h< height; h++ ){
-//                parcel.writeStringArray(answers);
+        parcel.writeBooleanArray(isCorrect);
+        parcel.writeBooleanArray(isFlipped);
+        parcel.writeStringArray(answers);
+        parcel.writeInt(difficulty);
+        parcel.writeStringArray(possibleAns);
+        parcel.writeInt(totalAnswers);
+        parcel.writeByte((byte) (gameOver ? 0x01 : 0x00));
 
-            }
-        }
+
     }
 }
 
