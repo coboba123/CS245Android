@@ -88,15 +88,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startGame();
         if (savedInstanceState != null) {
             mGameEngine = savedInstanceState.getParcelable("game_engine");
+            score.setText(((Integer) mGameEngine.points).toString());
             guess1 = savedInstanceState.getInt("guess1");
             guess2 = savedInstanceState.getInt("guess2");
-            int cursor = 0;
             for (int i = 0; i < 20; i++) {
-
                 if (mGameEngine.isFlipped[i]) {
-                    buttonArray[cursor].setBackgroundResource(R.drawable.blankcard);
-                    buttonArray[cursor].setTextColor(Color.BLACK);
-                    buttonArray[cursor].setText(mGameEngine.answers[i]);
+                    buttonArray[i].setBackgroundResource(R.drawable.blankcard);
+                    buttonArray[i].setTextColor(Color.BLACK);
+                    buttonArray[i].setText(mGameEngine.answers[i]);
                 }
 
             }
@@ -113,13 +112,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = settings.edit();
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        int pos = savedInstanceState.getInt("possition");
-        mediaPlayer.seekTo(pos); // RETURN SONG TO CURRENT POS
-        super.onRestoreInstanceState(savedInstanceState);
-
-    }
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        int pos = savedInstanceState.getInt("possition");
+//        mediaPlayer.seekTo(pos); // RETURN SONG TO CURRENT POS
+//        super.onRestoreInstanceState(savedInstanceState);
+//
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
