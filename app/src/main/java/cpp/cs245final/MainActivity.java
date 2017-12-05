@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //sets background to the card back and erases text.
             //only if internally it wasn't guessed correctly
             case R.id.tryAgainButton:
-                Toast.makeText(getBaseContext(), "hi cody", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Flipping Over Cards", Toast.LENGTH_LONG).show();
                 if (!mGameEngine.gameOver) {
                     guessed = false;
                     mGameEngine.revertTiles();
@@ -276,6 +276,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //endGame();
                 mGameEngine.gameOver = true;
                 int cursor = 0;
+                boolean finished = true;
+                for (int x = 0; x < 20; x++)
+                {
+
+                    if (!mGameEngine.isFlipped[x])
+                    {
+                        finished = false;
+                    }
+                }
+
+                if (finished)
+                {
+                        int highScore = mGameEngine.getPoints();
+                        String diff = difficultyLevel;
+                        Toast.makeText(getBaseContext(),"New High Score!",Toast.LENGTH_LONG).show();
+                        final Intent startHighScoreInput = new Intent(this,HighScoreEngine.class);
+                        startHighScoreInput.putExtra("highScore",highScore);
+                        startHighScoreInput.putExtra("difficulty",diff);
+                        startActivity(startHighScoreInput);
+                }
+
                 for (int x = 0; x < 20; x++) {
 
                         buttonArray[cursor].setBackgroundResource(R.drawable.blankcard);
@@ -288,6 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         cursor++;
 
                 }
+                endGameButton.setText("Finish Game");
 
 
                 break;

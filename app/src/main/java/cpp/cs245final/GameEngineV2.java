@@ -140,5 +140,10 @@ public class GameEngineV2 implements Parcelable {
 
 
     }
+
+    public int getPoints()
+    {
+        return points;
+    }
 }
 
